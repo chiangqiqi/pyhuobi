@@ -8,6 +8,10 @@ python3 version
 
 这里做的工作是简单的做了一下封装。
 
+## 安装
+
+`python setup.py install`
+
 ## Example 
 
 ```python
@@ -29,5 +33,6 @@ PR is welcomed
 
 and if this helps you, feel free to send me some tips:
 
-ETH: 
-LTC: 
+ETH: 0xf8551c03cadead264511f098554d17e14368d193
+
+LTC: LXGSn39Dgx3thCLPVxKsCcLFYTcArw8a3C
