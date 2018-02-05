@@ -21,14 +21,14 @@ class Huobi:
 
     def _get_accounts(self):
         """
-        :return: 
+        :return:
         """
         path = "/v1/account/accounts"
         params = {}
         return self.auth.get(path, params)
 
 
-    def send_order(self, amount, source, symbol, _type, price=0):
+    def send_order(self, amount, source, symbol, _type, price=None):
         """
         :param amount:
         :param source: 如果使用借贷资产交易，请在下单接口,请求参数source中填写'margin-api'
@@ -85,4 +85,27 @@ class Huobi:
                   'type': type}
 
         url = '/market/depth'
+        return self.auth.get(url, params)
+
+    def get_orders(self, symbol, states='filled'):
+        """获取当前委托历史委托
+        states: pre-submitted 准备提交, submitted 已提交, partial-filled 部分成交,
+                partial-canceled 部分成交撤销, filled 完全成交, canceled 已撤销
+        """
+        params = {
+            'symbol': symbol,
+            'states': states
+        }
+
+        url = '/v1/order/orders'
+        return self.auth.get(url, params)
+
+    def get_trades(self, symbol, _type=None):
+        """获取当前交易， 历史交易
+        """
+        params = {
+            'symbol': symbol,
+            'type': _type
+        }
+        url = '/v1/order/matchresults'
         return self.auth.get(url, params)
