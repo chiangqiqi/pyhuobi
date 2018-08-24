@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import logging
+
 from .utils import Auth
 
 '''
@@ -17,8 +19,11 @@ class Huobi:
         # self._skey = skey
         self.auth = Auth(pkey, skey)
         accounts = self._get_accounts()
-        self._acc_id = accounts['data'][0]['id']
-
+        try:
+            self._acc_id = accounts['data'][0]['id']
+        except:
+            logging.warning("can not get accid")
+            
     def _get_accounts(self):
         """
         :return:
@@ -66,6 +71,10 @@ class Huobi:
         :param size: 可选值： [1,2000]
         :return:
         """
+        period_values = ['1min', '5min', '15min', '30min','60min', '1day', '1mon', '1week', '1year']
+        if period not in period_values:
+            raise ValueError(f"Period should be in {period_values}")
+        
         params = {'symbol': symbol,
                   'period': period,
                   'size': size}
@@ -109,3 +118,9 @@ class Huobi:
         }
         url = '/v1/order/matchresults'
         return self.auth.get(url, params)
+
+    def get_markets(self):
+        """get all symbols
+        """
+        url = '/market/tickers'
+        return self.auth.get(url, {})

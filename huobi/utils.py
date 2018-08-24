@@ -39,7 +39,7 @@ def http_get_request(url, params, add_to_headers=None):
         else:
             return
     except BaseException as e:
-        print("httpGet failed, detail is:%s,%s" %(response.text,e))
+        print("httpGet failed, detail is:%s,%s")
         return
 
 
